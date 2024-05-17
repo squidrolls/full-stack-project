@@ -11,8 +11,8 @@ public class CustomerListDataAccessService implements CustomerDao{
     private static List<Customer> customers;
     static{
         customers = new ArrayList<>();
-        Customer alex = new Customer(1, "Alex", "alex@gmail.com", 21);
-        Customer jamila = new Customer(2, "Jamila", "jamila@gmail.com", 22);
+        Customer alex = new Customer(1L, "Alex", "alex@gmail.com", 21);
+        Customer jamila = new Customer(2L, "Jamila", "jamila@gmail.com", 22);
         customers.add(alex);
         customers.add(jamila);
     }
@@ -22,7 +22,7 @@ public class CustomerListDataAccessService implements CustomerDao{
     }
 
     @Override
-    public Optional<Customer> selectCustomerById(Integer id) {
+    public Optional<Customer> selectCustomerById(Long id) {
         return customers.stream().filter(customer -> customer.getId().equals(id))
                 .findFirst();
     }
@@ -38,14 +38,14 @@ public class CustomerListDataAccessService implements CustomerDao{
     }
 
     @Override
-    public void deleteCustomer(Integer id) {
+    public void deleteCustomer(Long id) {
         customers.stream().filter(customer -> customer.getId().equals(id))
                 .findFirst()
                 .ifPresent(customers::remove);
     }
 
     @Override
-    public boolean existsPersonWithId(Integer id) {
+    public boolean existsPersonWithId(Long id) {
         return customers.stream().anyMatch(customer -> customer.getId().equals(id));
     }
 
