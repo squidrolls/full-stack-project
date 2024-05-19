@@ -33,12 +33,12 @@ public class CustomerService {
             throw new DuplicateResourceException("email already taken");
         }
         //add
-        customerDao.insertCustomer(
-                new Customer(customerRegistrationRequest.name(),
-                        customerRegistrationRequest.email(),
-                        customerRegistrationRequest.age())
-        );
+        Customer customer = new Customer(
+                customerRegistrationRequest.name(),
+                customerRegistrationRequest.email(),
+                customerRegistrationRequest.age());
 
+        customerDao.insertCustomer(customer);
     }
 
     public void deleteCustomer(Long id) {
@@ -49,7 +49,7 @@ public class CustomerService {
     }
 
 
-    public void updateCustomer(Long id, CustomerRegistrationRequest updateRequest) {
+    public void updateCustomer(Long id, CustomerUpdateRequest updateRequest) {
         Customer customer = customerDao.selectCustomerById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(id)
@@ -82,7 +82,5 @@ public class CustomerService {
         }
 
         customerDao.updateCustomer(customer);
-
-
     }
 }
